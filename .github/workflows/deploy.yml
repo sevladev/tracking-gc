@@ -1,0 +1,79 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Create index.html for GitHub Pages
+      run: |
+        # Create simple index.html for GitHub Pages
+        cat > dist/index.html << 'EOF'
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Tracking Script CDN</title>
+            <style>
+                body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+                .code { background: #f4f4f4; padding: 15px; border-radius: 5px; margin: 10px 0; }
+                .url { color: #0066cc; font-weight: bold; }
+            </style>
+        </head>
+        <body>
+            <h1>🎯 Multi-Platform Tracking Script CDN</h1>
+
+            <h2>📋 Usage</h2>
+            <div class="code">
+                &lt;script src="<span class="url">https://sevladev.github.io/tracking-gc/tracking-latest.min.js</span>"&gt;&lt;/script&gt;
+            </div>
+
+            <h2>📦 Available Files</h2>
+            <ul>
+                <li><a href="tracking-latest.min.js">tracking-latest.min.js</a> - Always latest version</li>
+                <li><a href="version.txt">version.txt</a> - Version info</li>
+            </ul>
+
+            <h2>🔗 Platforms Supported</h2>
+            <ul>
+                <li>✅ TikTok Ads</li>
+                <li>✅ Facebook Pixel</li>
+                <li>✅ Kwai Ads</li>
+                <li>✅ Taboola</li>
+                <li>✅ Push House</li>
+                <li>✅ Propeller Ads</li>
+                <li>✅ UOL Ads</li>
+            </ul>
+
+            <p><strong>🔐 Security:</strong> Domain whitelist enabled. Script only works on authorized domains.</p>
+        </body>
+        </html>
+        EOF
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      if: github.ref == 'refs/heads/main'
+      with:
+        enablement: true
+
+    - name: Upload to GitHub Pages
+      uses: actions/upload-pages-artifact@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        path: ./dist
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+      if: github.ref == 'refs/heads/main'

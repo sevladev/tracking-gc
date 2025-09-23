@@ -1,0 +1,32 @@
+{
+  "name": "tracking-gc",
+  "version": "1.0.0",
+  "description": "Multi-platform tracking script with fingerprinting and pixel integration",
+  "main": "dist/tracking-latest.min.js",
+  "scripts": {
+    "dev": "http-server -p 3000",
+    "obfuscate": "node obfuscate.js"
+  },
+  "keywords": [
+    "tracking",
+    "analytics",
+    "pixel",
+    "fingerprinting",
+    "tiktok",
+    "facebook",
+    "kwai",
+    "taboola"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "javascript-obfuscator": "^4.1.1",
+    "terser": "^5.24.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sevladev/tracking-gc.git"
+  },
+  "homepage": "https://sevladev.github.io/tracking-gc/"
+}
